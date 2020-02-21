@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta charset="UTF-8">
+		<link rel="icon" type="image/png" href="img/icon.png"/>
+		<script src="avisos.js"></script>
+		<!--<script src="manifest.json"></script>-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<!--<script src="http://servicos.cptec.inpe.br/XML/listaCidades?city=sao%20paulo"></script>-->
+		<title>Buscas</title>
+
+		<script>
+		
+			function getById(id){
+				return document.getElementById(id) 
+			}
+
+			function getByClass(cl){
+				return document.getElementsByClassName(cl) 
+			}
+		
+		</script>
+		
+		<style>
+		
+			*{
+			//transition: 0.2s ease !important;
+			font-family: sans, verdana;
+			margin: 0px;
+			padding: 0px;
+			}
+			
+			.transicao{
+			transition: 0.5s ease !important;
+			}
+
+			option::selection, ::selection{
+			background-color: rgba(0,0,0,0.5);
+			color: #fff;
+			}
+			
+			::focus{
+			border: 1px solid #000;
+			}
+		
+			#divPesquisa{
+			//transition: 0.3s all ease;
+			padding: 5px 0px;
+			position: fixed;
+			width: 100%;
+			}
+
+			form:hover, .link a:hover{
+			position: relative;
+			box-shadow: 0px 3px 8px #333;
+			border: 1px solid rgba(0,0,0,0.1);
+			transform: scale(1.01);
+			}
+			
+			form{
+			background: rgba(255,255,255,0.5);
+			display: grid;
+			grid-template-columns: 30% 40% 30%;
+			justify-content: space-around;
+			border: 1px solid rgba(0,0,0,0.2);
+			border-radius: 25px;
+			margin: 5px;
+			padding: 5px 0px;
+			}
+		
+			select, input, button{
+			background: rgba(0,0,0,0.0);
+			display: inline-block;
+			color: #555;
+			border: 1px solid rgba(0,0,0,0.0);
+			padding: 10px 5%;
+			}
+			
+			input{
+			border-left-color: rgba(0,0,0,0.1);
+			border-right-color: rgba(0,0,0,0.1);
+			}
+			
+			select{
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			-ms-appearance: none;
+			appearance: none;
+			background: url("img/setaBaixo.png") no-repeat rgba(0,0,0,0.0);  /* Imagem de fundo (Seta) */
+			background-position: 95% 50%;
+			background-size: 12px;
+   
+			}
+			
+			.titulo{
+			color: #358;
+			}
+			
+			.sombraTexto{
+			text-shadow: 0px 3px 10px #fff, 0px 3px 10px #000;
+			}
+
+			#nomeDaEscola{
+			background-image: linear-gradient(0deg, #fff, #fff0);
+			text-align: center;
+			font-size: 38px;
+			}
+			
+			#apresentacao{
+			background-image: url('img/bg.jpg');
+			background-position: 50% 0%;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			padding: 0%;
+			}
+			
+			#relogio{
+			display: grid;
+			grid-template-columns: 160px 160px;
+			//background-color: rgba(150,200,255,0.5);
+			justify-content: space-around;
+			}
+			
+			#relogio div{
+			//font-size: 150%;
+			text-align: center;
+			//margin: 20px;
+			}
+
+			.cartao{
+			margin: 5%;
+			padding: 5%;
+			}
+
+			.fundo{
+			background-color: #fff;
+			}
+
+			#painelRapido{
+			//height: 200px;
+			}
+
+			.sombra{
+			box-shadow: 0px 3px 15px #555;
+			}
+
+			#iframe{
+				width: 100%;
+				border: 0px;
+				//padding: 5px;
+				background-color: #fffc;
+				position: absolute;
+				height: 500px;
+			}	
+			
+			@media screen and (max-width: 600px){
+				#relogio{
+				display: grid;
+				grid-template-columns: 200px;
+				}
+				
+				#topo{
+					display: grid;
+					grid-template-columns: 80%;
+				}
+			}
+		
+			.link a{
+			text-decoration: none;
+			background: #459ad6;
+			color: rgba(255,255,255,0.8);
+			width: 100%;
+			line-height: 60px;
+			padding: 15px 5px;
+			margin: 2px 0px;
+			border: 1px solid rgba(255,255,255,0.4);
+			}
+			
+			.link a, .pesquisa form{
+				transition: 0.3s all ease;
+			}
+			
+			#topo{
+				display: grid;
+				grid-template-columns: 30% 30% 30%;
+				justify-content: space-around;
+				text-align: center;
+			}
+			
+			.escondido{ display: none }
+			
+			.assinatura{
+				margin: 20%;
+			}
+			
+			.divisor{
+				line-height: 30px;
+			}
+
+			#rodape{
+				padding: 2%;
+				background-color: rgb(69, 154, 214);
+			}
+
+			#infos, .regua{
+				margin: 10% 2%;
+				display: grid;
+				grid-template-columns: 30% 70%;
+			}
+			
+			#infos #logo{
+				background-image: url('img/logo.png');
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: 50%;
+			}
+		
+		</style>
+		
+		
+	</head>
+
+	<body>
+	
+		<div class="tudo">
+			
+			<div class="pesquisa w3-container transicao" id="divPesquisa">
+			
+				<form class="entradaPesquisa" action="https://www.google.com.br/search?q=" target="_blank">
+				
+					<select class="seletorDeSite">
+						<!-- ADICIONAR ICONES COM CSS -->
+						<option value="https://www.google.com.br/search?q=">Descobrir o R.A.</option>
+						<option value="https://www.cifraclub.com.br/?q=">Bilhetes e avisos</option>
+					</select>
+					
+					<input type="text" name="q" id="entrada" class="entrada" placeholder="Descobrir o R.A."/>
+					
+					<button value="Ir" class="encontrar">Pesquisar</button>
+				
+				</form>
+			
+			</div><!--pesquisa-->
+
+
+			<div id="apresentacao">
+
+				<div id="nomeDaEscola" class="titulo sombraTexto">
+				
+					E. E. Profª Maria Helena Antônio Cardoso <br>(Núcleo Vida Nova)
+			
+					<div id="relogio">
+					
+					
+					</div>
+				
+				</div>
+			
+			</div>
+			
+
+			<div id="painelRapido" class="w3-container">
+				<div class="link w3-container cartao" id="topo">
+					<a href="https://sed.educacao.sp.gov.br/" target="_blank"><span>Calendário de aulas</span></a>
+					<a href="https://sed.educacao.sp.gov.br/" target="_blank"><span>Secretaria Escolar Digital (SED)</span></a>
+					<a href="https://escolar.transurc.com.br/AlunoLogin" target="_blank"><span>Solicitar Bilhete Único Escolar</span></a>
+				</div>
+				
+				<div class="link w3-container cartao">
+					<h2 class="titulo">Mural de Avisos</h2>
+					<div id="saidaAvisos">
+					</div>
+				</div>
+
+			</div>
+			
+				<!--<div class="visual" id="divFrame">
+					<iframe id="iframe" name="saida"></iframe>
+				</div>-->
+
+		</div><!--tudo-->
+		
+		<footer>
+			<div id="rodape">
+				<div id="infos">
+					<div id="logo"></div>
+					<div id="contato">
+						<h1 class="sombraTexto">E. E. Profª Maria Helena Antônio Cardoso</h1>
+						<p class="">(antigo Núcleo Habitacional Vida Nova)</p>
+						<br>
+						<h4>Telefones: <a href="callTo:+553266-9764">3266-9764</a> <br> ou  <a href="callTo:+553266-9577">3266-9577</a></h4>
+						<br>
+						<p>Rua Estevão Segallio, 140</p>
+						<p>Campinas Oeste</p>
+					</div>
+					
+				</div>
+				
+				<div id="" style="text-align: center">
+					<img src="https://sedseecdn.azureedge.net/images/favicon_eleitoral/ms-icon-70x70.png"/>
+					<h4>Governo do Estado de São Paulo</h4>
+					<p>Secretaria da Educação do Estado de São Paulo</p>
+				</div>
+				<br>
+				<div id="desenvilvedor" style="text-align: center">Desenvolvido por <a href="#">LLDev</a></div>
+			</div>
+		</footer>
+	
+	</body>
+	
+	<script>
+	
+		$(document).ready(function(){
+			//alert("OI");
+			
+			altura = window.innerHeight;
+			largura = window.innerWidth;
+			contAvisos = 0;
+
+			while ( contAvisos < avisos.length ){
+				diaPublicado = document.createElement("span");
+				diaPublicado.innerText = "Publicado em " + avisos[contAvisos][0];
+				
+				titulo = document.createElement("h2");
+				titulo.innerText = avisos[contAvisos][1];
+				
+				conteudo = document.createElement("p");
+				conteudo.innerHTML = avisos[contAvisos][2];
+				
+				avisoCompleto = document.createElement("div");
+				avisoCompleto.setAttribute("class", "divisor sombra cartao fundo");
+				
+				avisoCompleto.append( titulo,diaPublicado,conteudo );
+				getById("saidaAvisos").appendChild(avisoCompleto)
+				contAvisos++;
+			}
+			
+			$("select").change(function(){
+				motor = $("select option:selected");
+				//alert( motor.val() );
+				$("form").attr("action", motor.val() );
+				$("#entrada").attr("placeholder", motor.text());
+			});
+
+			/**
+			addZero = function(num){
+				if ( num < 10 ){
+					num = "0" + num.toString();
+				}
+				return num;
+			}
+
+			motorRelogio = function(){
+				t = new Date();
+				
+				horas = t.getHours()
+				minutos = t.getMinutes();
+				segundos = t.getSeconds();
+				
+				dia = t.getDate();
+				mes = t.getMonth()+1;
+				ano = t.getFullYear();
+				
+				getById("horas").innerText = addZero(horas);
+				getById("minutos").innerText = addZero(minutos);
+				getById("segundos").innerText = addZero(segundos);
+				
+				getById("dia").innerText = addZero(dia);
+				getById("mes").innerText = addZero(mes);
+				getById("ano").innerText = addZero(ano);
+				
+				setTimeout( function(){ motorRelogio() }, 1000);
+			}
+			**/
+
+
+			//motorRelogio();
+			
+			//getById("apresentacao").style.height = (altura - 50 )+"px";
+			//getById("iframe").style.height = (altura *2 )+ "px";
+			
+			//getById("apresentacao").style.height = ( getById("nomeDaEscola").offsetHeight * 3 )+"px"
+			//if ( largura > altura ){
+				getById("nomeDaEscola").style.padding = (getById("nomeDaEscola").offsetHeight * 2 )+"px 0px";
+			//}
+			
+		});
+	
+	</script>
+	<script type="text/javascript">
+
+		window.addEventListener("scroll", function(){
+			//console.log(window.scrollY);
+			apresentacao.style.backgroundPosition = "50% -" + (window.scrollY / 8 ) + "px";
+			//apresentacao.style.filter = "opacity(" + ( window.scrollY / (altura / 2.5 ) ) + ")";
+			//console.log( ( window.scrollY / altura  ) );
+			
+			//getById("painelRapido").style.transform = "translate( 0px, -" + ( window.scrollY * 2 ) + "px)";
+			
+			rolagem = (window.scrollY / (document.body.offsetHeight / 1.2 ));
+			
+			if ( rolagem < 0.99999 ){
+				getById("divPesquisa").style.background = "rgba(69, 154, 214, " + (window.scrollY / (document.body.offsetHeight / 5 ) ).toString().slice(0,3) + ")";
+				//console.log( (window.scrollY / (document.body.offsetHeight / 2 ) ).toString().slice(0,3) );
+			}
+			//console.log( (window.scrollY / (document.body.offsetHeight / 1.2 ) ).toString().slice(0,3) );
+		});
+		
+
+	</script>	
+</html>
