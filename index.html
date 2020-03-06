@@ -6,6 +6,7 @@
 		<meta charset="UTF-8">
 		<link rel="icon" type="image/png" href="img/icon.png"/>
 		<script src="avisos.js"></script>
+		<script src="alunos.json"></script>
 		<!--<script src="manifest.json"></script>-->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -45,54 +46,67 @@
 			::focus{
 			border: 1px solid #000;
 			}
-		
-			#divPesquisa{
-			//transition: 0.3s all ease;
-			padding: 5px 0px;
-			position: fixed;
-			width: 100%;
+
+			#menuNav{  }
+			.menuNav:target{
+				display: grid;
+				position: fixed;
+				background-color: #459ad6;
+				min-width: 300px;
+				animation-name: menuAbre;
+				animation-duration: 0.5s;
 			}
 
-			form:hover, .link a:hover{
-			position: relative;
-			box-shadow: 0px 3px 8px #333;
-			border: 1px solid rgba(0,0,0,0.1);
-			transform: scale(1.01);
+			#menuNav div{
+				display: grid;
+				margin: 20px;
 			}
 			
-			form{
-			background: rgba(255,255,255,0.5);
-			display: grid;
-			grid-template-columns: 30% 40% 30%;
-			justify-content: space-around;
-			border: 1px solid rgba(0,0,0,0.2);
-			border-radius: 25px;
-			margin: 5px;
-			padding: 5px 0px;
+			#menuNav a{
+				color: #fff;
+				line-height: 50px;
+				text-decoration: none;
+				border: solid #459ad6;
+				border-width: 0px 0px 1px 0px;
+				transition: 0.5s all ease;
+				font-size: 26px;
 			}
-		
-			select, input, button{
-			background: rgba(0,0,0,0.0);
-			display: inline-block;
-			color: #555;
-			border: 1px solid rgba(0,0,0,0.0);
-			padding: 10px 5%;
+			#menuNav a:hover{
+				border: solid #fff;
+				border-width: 0px 0px 1px 0px;
 			}
 			
-			input{
-			border-left-color: rgba(0,0,0,0.1);
-			border-right-color: rgba(0,0,0,0.1);
+			#btFechar{
+				display: grid;
+				grid-template-columns: 80% 20%;
+				justify-content: space-between;
 			}
 			
-			select{
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			-ms-appearance: none;
-			appearance: none;
-			background: url("https://luislimadev.github.io/Escola-Maria-Helena/img/setaBaixo.png") no-repeat rgba(0,0,0,0.0);  /* Imagem de fundo (Seta) */
-			background-position: 95% 50%;
-			background-size: 12px;
-   
+			#barraMenu{
+				position: fixed;
+				font-size: 16px;
+				width: 100%;
+				display: grid;
+				justify-content: space-between;
+				//background-color: rgba(0,0,0,1.0);
+				
+			}
+			
+			#barraMenu a, #barraMenu a img{
+				text-align: center;
+				list-style: none;
+				text-decoration: none;
+				color: #fff;
+				line-height: 100px;
+				padding: 0px 30px;
+				transition: 1s all ease !important;
+			}
+			
+			#barraMenu a:hover, #barraMenu a img:hover{
+				//background-color: rgba(255,255,255,0.1);
+				text-shadow: 0px 2px 5px #555;
+				//background-size: 90px;
+				color: #eef;
 			}
 			
 			.titulo{
@@ -145,7 +159,8 @@
 			}
 
 			.sombra{
-			box-shadow: 0px 3px 15px #555;
+			box-shadow: 0px 10px 15px -5px #555;
+			border-radius: 5px;
 			}
 
 			#iframe{
@@ -209,7 +224,8 @@
 			#infos, .regua{
 				margin: 10% 2%;
 				display: grid;
-				grid-template-columns: 30% 70%;
+				grid-template-columns: 30% 60%;
+				justify-content: space-between;
 			}
 			
 			#infos #logo{
@@ -226,25 +242,45 @@
 
 	<body>
 	
+		<header>
+		
+			<div id="barraMenu" class="fundoCinza">
+				<a href="#menuNav" style="font-size: xx-large" id="abrirMenu">&#9776;</a>
+			</div>
+			<div id="menuNav" class="menuNav escondido">
+				<div>
+					<nav id="btFechar">
+						<a href="#">Inicio</a>
+						<a href="#Fecha" id="fechaMenu"  style="text-align: center">&times;</a>
+					</nav>
+					<a href="#playlistMusicas" onclick="">Eventos</a>
+					<a href="#galeria" onclick="">Informativos</a>
+					<a href="#calendario">Calendário</a>
+					<a href="#contato">Contato</a>
+				</div>
+			</div>
+
+		</header><!--Div Menu-->
+
 		<div class="tudo">
 			
-			<div class="pesquisa w3-container transicao" id="divPesquisa">
 			
-				<form class="entradaPesquisa" action="https://www.google.com.br/search?q=" target="_blank">
-				
-					<select class="seletorDeSite">
-						<!-- ADICIONAR ICONES COM CSS -->
-						<option value="https://www.google.com.br/search?q=">Descobrir o R.A.</option>
-						<option value="https://www.cifraclub.com.br/?q=">Bilhetes e avisos</option>
-					</select>
-					
-					<input type="text" name="q" id="entrada" class="entrada" placeholder="Descobrir o R.A."/>
-					
-					<button value="Ir" class="encontrar">Pesquisar</button>
-				
-				</form>
+
 			
-			</div><!--pesquisa-->
+			<!--<form class="entradaPesquisa" action="https://www.google.com.br/search?q=" target="_blank">
+			
+				<select class="seletorDeSite">
+					<option value="https://www.google.com.br/search?q=">Descobrir o R.A.</option>
+					<option value="https://www.cifraclub.com.br/?q=">Bilhetes e avisos</option>
+				</select>
+				
+				<input type="text" name="q" id="entrada" class="entrada" placeholder="Descobrir o R.A."/>
+				
+				<button value="Ir" class="encontrar">Pesquisar</button>
+			
+			</form>pesquisa-->
+		
+		
 
 
 			<div id="apresentacao">
@@ -289,7 +325,7 @@
 				<div id="infos">
 					<div id="logo"></div>
 					<div id="contato">
-						<h1 class="sombraTexto">E. E. Profª Maria Helena Antônio Cardoso</h1>
+						<h1 class="">E. E. Profª Maria Helena Antônio Cardoso</h1>
 						<p class="">(antigo Núcleo Habitacional Vida Nova)</p>
 						<br>
 						<h4>Telefones: <a href="callTo:+553266-9764">3266-9764</a> <br> ou  <a href="callTo:+553266-9577">3266-9577</a></h4>
@@ -404,7 +440,7 @@
 			rolagem = (window.scrollY / (document.body.offsetHeight / 1.2 ));
 			
 			if ( rolagem < 0.99999 ){
-				getById("divPesquisa").style.background = "rgba(69, 154, 214, " + (window.scrollY / (document.body.offsetHeight / 5 ) ).toString().slice(0,3) + ")";
+				getById("barraMenu").style.background = "rgba(69, 154, 214, " + (window.scrollY / (document.body.offsetHeight / 5 ) ).toString().slice(0,3) + ")";
 				//console.log( (window.scrollY / (document.body.offsetHeight / 2 ) ).toString().slice(0,3) );
 			}
 			//console.log( (window.scrollY / (document.body.offsetHeight / 1.2 ) ).toString().slice(0,3) );
@@ -412,4 +448,32 @@
 		
 
 	</script>	
+	
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
+
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+		 https://firebase.google.com/docs/web/setup#available-libraries -->
+	<script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-analytics.js"></script>
+
+	<script>
+		// Your web app's Firebase configuration
+		var firebaseConfig = {
+			apiKey: "AIzaSyCJRgq1v-tVmBxjYm0ueH3Fe94CD9b6mQk",
+			authDomain: "teste1escolamhac.firebaseapp.com",
+			databaseURL: "https://teste1escolamhac.firebaseio.com",
+			projectId: "teste1escolamhac",
+			storageBucket: "teste1escolamhac.appspot.com",
+			messagingSenderId: "1079460156940",
+			appId: "1:1079460156940:web:379e3feb10a94f3ebdc029",
+			measurementId: "G-9HJBBN9J82"
+		};
+
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		firebase.analytics();
+		
+		
+	</script>
 </html>
