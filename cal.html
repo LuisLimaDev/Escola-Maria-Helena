@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Dias da semana</title>
+		<script src="https://luislimadev.github.io/LLDev/elemental.js"></script>
+		<script src="https://luislimadev.github.io/LLDev/padrao.js"></script>
+	</head>
+	<body>
+		<script>
+		
+			let el = new Elementos;
+			let pd = new Padrao;
+			cal = new Date();
+			dias = 0;
+			feiras = ["domingo","segunda","terça","quarta","quinta","sexta","sabado","domingo","segunda","terça","quarta","quinta","sexta","sabado"];
+			tabela = novoElm("table");
+
+			while( dias < 5 ){
+				linha = novoElm("tr");
+				celula = novoElm("th");
+				celula.innerText = feiras[ (cal.getDay() + dias) ] ;
+				dia = novoElm("td");
+				dia.innerText = "dia " + ( cal.getDate() + dias ) + "/" + pd.de0a9( cal.getMonth()+1 ) + "/" + cal.getFullYear() ;
+				linha.append( celula );
+				linha.append( dia );
+				tabela.append( linha );
+				dias++;
+			}
+			document.body.append( tabela );
+		
+		</script>
+	</body>
+
+</html>
