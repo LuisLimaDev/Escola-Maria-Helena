@@ -13,12 +13,30 @@
 		
 		<style>
 			*{
-				transition: 0.1s all ease;
+				transition: 0.5s all ease !important;
 				font-family: 'Verdana', sans;
 				margin: 0px;
 				padding: 0px;
 			}
+			/* width */
+			::-webkit-scrollbar {
+			  width: 10px;
+			}
 
+			/* Track */
+			::-webkit-scrollbar-track {
+			  background: #f1f1f100;
+			}
+			/* Handle */
+			::-webkit-scrollbar-thumb {
+			  background: #88f;
+			  border-radius: 0px 10px 10px 0px;
+			}
+
+			/* Handle on hover */
+			::-webkit-scrollbar-thumb:hover {
+			  background: #55f;
+			}
 			body{
 				//background: url('https://img.ibxk.com.br/2019/05/17/a-17202525498312.jpg');
 			}
@@ -70,12 +88,14 @@
 				position: absolute;
 				box-shadow: 0px 3px 10px gray;
 				min-height: 200px;
-				max-height: 80vh;
+				max-height: 78vh;
 				overflow-y: scroll;
-				transform: translate(-50%, 0%)
+				transform: translate(-50%, 0%);
 				top: 10%;
-				left: 25%;
+				left: 50%;
 				display: grid;
+				border-radius: 20px;
+				border: 10px solid #ffffff00;
 			}
 			
 			input, button{
@@ -209,7 +229,7 @@
 			//painel.style.backgroundImage = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' > ` + nSVG.novaPolyforma('formaFundo', '50,0, 50,0, 25,25, 50,50', 'stroke: pink; fill: transparent' ) + `</svg>")`;
 			//painel.style.backgroundImage = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' > <path d='m0,0 20,0, 30,30 0,20z' style='fill: transparent; stroke: red'/> </svg>")`;
 			el.acrescentar( document.body, painel);
-			el.acrescentar( document.body, divSaida);
+			el.acrescentar( painel, divSaida);
 			teia();
 			let historicoDeAcesso, acessoDoAluno, acessoAlunoSED, acessoCMSP, loginRA, inicioRA, digRA, senhaAluno, senhaSED;
 			
@@ -253,7 +273,7 @@
 				mensagemSaida = el.novaDiv( dados );
 				mensagemSaida.setAttribute("class", "cartao sombra divisor fundo");
 
-				getById("apresentacao").append( el.novaDiv( mensagemSaida.outerHTML ) );
+				getById("divSaida").append( el.novaDiv( mensagemSaida.outerHTML ) );
 			}
 
 			getById("converter").addEventListener("click",function(){
