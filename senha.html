@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>Trianglos</title>
+		<meta name="theme-color" content="#0af"/>
+		<meta http-equiv="Content-Language" content="pt-br">
+		<meta name="description" content="Free Web tutorials">
+		<link rel="manifest" href="manifest.json">
+		<script src="https://luislimadev.github.io/LLDev/padrao.js"></script>
+		<!--<script src="script.js"></script>-->
+		<script src="elemental.js"></script>
+		
+		<style>
+			*{
+				transition: 0.5s all ease !important;
+				font-family: 'Verdana', sans;
+				margin: 0px;
+				padding: 0px;
+			}
+			/* width */
+			::-webkit-scrollbar {
+			  width: 10px;
+			}
+
+			/* Track */
+			::-webkit-scrollbar-track {
+			  background: #f1f1f100;
+			}
+			/* Handle */
+			::-webkit-scrollbar-thumb {
+			  background: #88f;
+			  border-radius: 0px 10px 10px 0px;
+			}
+
+			/* Handle on hover */
+			::-webkit-scrollbar-thumb:hover {
+			  background: #55f;
+			}
+			body{
+				//background: url('https://img.ibxk.com.br/2019/05/17/a-17202525498312.jpg');
+			}
+
+			body div.girar {
+				position: absolute;
+				top: 0%;
+				left: 0%;
+			}
+			
+			body{ overflow: hidden; background: linear-gradient(45deg, #38c, #025); min-height: calc( var(--alturaTotal) * 1.3 ) }
+
+			@keyframes girar{
+				0%{ transform: rotateY(0deg) }
+				50%{ transform: rotateY(180deg) }
+				100%{ transform: rotateY(360deg) }
+			}
+
+			@keyframes girarBorda{
+				0%{ stroke-dasharray: 100 100 300; }
+				50%{ stroke-dasharray: 100 100 200; }
+				100%{ stroke-dasharray: 100 100 300; }
+			}
+			
+			polygon {
+				stroke-dasharray: 50 50 ;
+				animation: 90s girarBorda infinite running;
+			}
+			
+			.divisor{
+				line-height: 30px;
+			}
+
+			.sombra{
+			box-shadow: 0px 10px 15px -5px #555;
+			border-radius: 5px;
+			}
+
+			.cartao{
+			margin: 5%;
+			padding: 5%;
+			}
+
+			#apresentacao{
+				background-color: #ffffffaa;
+				color: black;
+				width: 40%;
+				padding: 20px;
+				position: absolute;
+				box-shadow: 0px 3px 10px gray;
+				min-height: 200px;
+				max-height: 78vh;
+				overflow-y: scroll;
+				transform: translate(-50%, 0%);
+				top: 10%;
+				left: 50%;
+				display: grid;
+				border-radius: 20px;
+				border: 10px solid #ffffff00;
+			}
+			
+			input, button{
+				display: block;
+				width: 200px;
+				font-size: 12pt;
+				color: #444;
+				padding: 5px 10px;
+				margin: 0 auto;
+			}
+			label{
+				font-size: 10pt;
+				margin: 10px;
+			}
+
+		</style>
+		
+	</head>
+	<body>
+	
+		<script>
+			
+			let el = new Elementos;
+			let pp = new Padrao;
+			let nSVG = new ElementosSVG;
+			frm = new FormLL;
+			
+			objetosDoSistema = [
+				"sol",
+				
+			]
+			
+			atmosfera = function(){
+				distancia = 1;
+				while( distancia < 80 ){
+					anguloDeVisao = el.novaDiv("");
+					anguloDeVisao.id = distancia + "metros";
+					anguloDeVisao.setAttribute("class","girar");
+					posInitX = Math.random() * window.innerWidth;
+					posInitY = Math.random() * window.innerHeight;
+					animStars( Math.round( ( Math.random() * - 50 ) + (Math.random() * + 50) ), Math.round( ( Math.random() * - 50 ) + (Math.random() * + 50) ), distancia );
+					anguloDeVisao.style.background = "radial-gradient( " + Math.round( Math.random() * (distancia/4) ) + "px ,rgb( " +  Math.round( Math.random() * 255 ) + "," +  Math.round( Math.random() * 255 ) + ", " +  Math.round( Math.random() * 255 ) + "), transparent), radial-gradient( " + Math.round( Math.random() * (distancia/16) ) + "px ,rgb( " +  Math.round( Math.random() * 255 ) + "," +  Math.round( Math.random() * 255 ) + ", " +  Math.round( Math.random() * 255 ) + "), transparent)";
+					anguloDeVisao.style.animation = "30s linear 0." + distancia + "s infinite normal forwards running moverBolhas" + distancia ;
+					anguloDeVisao.style.backgroundPosition = Math.round( Math.random() * (larguraTotal/1.2) ) + "px " + Math.round( Math.random() * (alturaTotal/1.2) ) + "px";
+					//tamanho = Math.round( Math.random() * (distancia * 2) );
+					//tamanho = Math.round( Math.random() * tamanho );
+					tamanho = distancia;
+					anguloDeVisao.style.height = alturaTotal + "px";
+					anguloDeVisao.style.width = larguraTotal + "px";
+					//anguloDeVisao.style.transform = "rotateZ(" + Math.round( Math.random() * 360 ) + "deg)";
+					
+					/**if( distancia == 50 ){
+						el.acrescentar( document.body, anguloDeVisao );
+					} else {
+						el.acrescentar( ( distancia - 1) + "metros", anguloDeVisao );
+					}**/
+					el.acrescentar( document.body, anguloDeVisao );
+					distancia = distancia + 1;
+				}
+			}
+
+			triangulos = function(){
+				pai = nSVG.novoSVG("");
+				pai.style.width = window.innerWidth;
+				pai.style.height = window.innerHeight;
+				inicio = 0;
+				while( inicio < 50 ){
+					posInitX = Math.random() * window.innerWidth;
+					posInitY = Math.random() * window.innerHeight;
+					animBolhasPos( posInitX, posInitY, inicio );
+					bolhaIndividual = nSVG.novaPolyforma( "id"+inicio, "0,0, 12,2, 2,12", "fill: rgba( "+ ( Math.random() * 255 ) +", "+ ( Math.random() * 255 ) +" ,"+ ( Math.random() * 255 ) +","+ ( Math.random() ) +"); transform: translate( " + posInitX + "px , " + posInitY + "px ); animation: 30s linear " + inicio + "s infinite normal forwards running moverBolhas" + inicio + "; " );
+					pai.innerHTML = pai.innerHTML + bolhaIndividual;
+					inicio = inicio + 1;
+				}
+				document.body.append( pai );
+			}
+
+			bolhas = function(){
+				pai = nSVG.novoSVG("");
+				pai.style.width = window.innerWidth;
+				pai.style.height = window.innerHeight;
+				inicio = 0;
+				while( inicio < 80 ){
+					posInitX = Math.round( Math.random() * window.innerWidth );
+					posInitY = Math.round( Math.random() * window.innerHeight );
+					animBolhasPos( posInitX, posInitY, inicio );
+					gradiente = nSVG.novoDefs( nSVG.linearGradient2Cores("gradient" + inicio ,"#00a","#85a") );
+					pai.innerHTML = pai.innerHTML + gradiente.outerHTML;
+					bolhaIndividual =  nSVG.novoCirculo( 0,0, Math.round( Math.random() * ( window.innerWidth / 16 ) ), "id"+inicio, "fill: rgba( "+ Math.round( Math.random() * 255 ) +", "+ Math.round( Math.random() * 255 ) +" ,"+ Math.round( Math.random() * 255 ) +",1); transform: translate( " + posInitX + "px, " + posInitY + "px); animation: 30s linear " + inicio + "s infinite normal forwards running moverBolhas" + inicio + "; " );
+					pai.innerHTML = pai.innerHTML + gradiente + bolhaIndividual;
+					inicio = inicio + 1;
+				}
+				document.body.append( pai );
+			}
+
+			teia = function(){
+				pontos = "";
+				pai = nSVG.novoSVG("");
+				pai.style.width = window.innerWidth;
+				pai.style.height = window.innerHeight;
+
+				defs = nSVG.novoDefs("");
+				defs.innerHTML =  nSVG.linearGradient2CoresA("teste1","#08f","#a08");
+				pai.append( defs )
+
+				inicio = 0;
+				while( inicio < 100 ){
+					posInitX = Math.random() * window.innerWidth;
+					posInitY = Math.random() * window.innerHeight;
+					animBolhasPos( posInitX, posInitY, inicio );
+
+					pontos = " " + Math.round( posInitX ) + "," + Math.round( posInitY ) + " " + pontos;
+					pontoDaTeia = nSVG.novaPolyforma( "id"+inicio, pontos, "fill: transparent; stroke: url(#teste1) " );
+					popPonto = nSVG.novoCirculo( Math.round( posInitX ),  Math.round( posInitY ), 1, "","fill: rgb( " + Math.round( Math.random() * 255 ) + ", " + Math.round( Math.random() * 255 ) + ", 255 );");
+					pai.innerHTML = pai.innerHTML + popPonto;
+					inicio = inicio + 1;
+				}
+				pai.innerHTML = pai.innerHTML + pontoDaTeia;
+				document.body.append( pai );
+			}
+
+			devLink = el.novoLink("Pagina do desenvolvedor","https://luislimadev.github.io/LLDev/");
+			devLink.rel="noreferrer";
+			botaoExibir = el.novoButton("Exibir", "", "");
+			botaoExibir.id = "converter";
+			painel = el.novaDiv( "<h1>Bem vindo</h1><p></p>" + frm.novaLabel( "R.A.: ", frm.inputTexto("loginRA", "loginRA")).outerHTML + frm.novaLabel( "Senha: ", frm.inputTexto("senhaAluno", "senhaAluno")).outerHTML + botaoExibir.outerHTML + devLink.outerHTML );
+			divSaida = el.novaDiv( "" );
+			divSaida.id = "divSaida";
+			painel.id = "apresentacao";
+						painel.style.backgroundSize = "80px";
+			//painel.style.backgroundImage = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' > ` + nSVG.novaPolyforma('formaFundo', '50,0, 50,0, 25,25, 50,50', 'stroke: pink; fill: transparent' ) + `</svg>")`;
+			//painel.style.backgroundImage = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' > <path d='m0,0 20,0, 30,30 0,20z' style='fill: transparent; stroke: red'/> </svg>")`;
+			el.acrescentar( document.body, painel);
+			el.acrescentar( painel, divSaida);
+			teia();
+			let historicoDeAcesso, acessoDoAluno, acessoAlunoSED, acessoCMSP, loginRA, inicioRA, digRA, senhaAluno, senhaSED;
+			
+			trabalharLogin = ( loginPraTrabalhar )=>{
+				<!-- //0001101189551sp -->
+				raAluno = loginPraTrabalhar;
+				if( raAluno.length == 15 ){
+					inicioRAs = raAluno.slice(3,12);
+					digRAs = raAluno.slice(12,13);
+					<!-- acessoCMSP = acessoCMSP.toString() + "-" + digRA.toString(); -->
+				}else if( raAluno.length == 14 ){
+					inicioRAs = raAluno.slice(3,12);
+					digRAs = raAluno.slice(13,14);
+					<!-- acessoCMSP = acessoCMSP.toString() + "-" + digRA.toString(); -->
+				} else if( raAluno.length == 13 ){
+					inicioRAs = raAluno.slice(3,12);
+					digRAs = raAluno.slice(12,13);
+					<!-- acessoCMSP = acessoCMSP.toString() + "-" + digRA.toString(); -->
+				} else if( raAluno.length == 11 ){
+					inicioRAs = raAluno.slice(0,9);
+					digRAs = raAluno.slice(10,11);
+					<!-- acessoCMSP = acessoCMSP.toString() + "-" + digRA.toString(); -->
+				} else if( raAluno.length == 10 ){
+					inicioRAs = raAluno.slice(0,9);
+					digRAs = raAluno.slice(9,10);
+					<!-- acessoCMSP = acessoCMSP.toString() + "-" + digRA.toString(); -->
+				}
+
+				//acessoAlunoSED = raAluno;
+
+				quebra = el.novoSpan("<br>");
+
+				inicioRA = el.novoSpan( "R.A.: " + inicioRAs );
+				digRA = el.novoSpan( "Dígito: " + digRAs );
+				senhaAluno = el.novoSpan( "Senha: " + getById("senhaAluno").value );
+				label1 = el.novaDiv("Acesso do aluno ao Centro de Mídias" + quebra.outerHTML + inicioRA.outerHTML + quebra.outerHTML + digRA.outerHTML + quebra.outerHTML + senhaAluno.outerHTML );
+				loginRA = el.novoSpan( "Login: 000" + inicioRAs +""+digRAs +"sp" );
+				label2 = el.novaDiv("Acesso sed.educacao.sp.gov.br " + quebra.outerHTML + loginRA.outerHTML + quebra.outerHTML + senhaAluno.outerHTML );
+
+				dados = label1.outerHTML + quebra.outerHTML + label2.outerHTML;
+				mensagemSaida = el.novaDiv( dados );
+				mensagemSaida.setAttribute("class", "cartao sombra divisor fundo");
+
+				getById("divSaida").append( el.novaDiv( mensagemSaida.outerHTML ) );
+			}
+
+			getById("converter").addEventListener("click",function(){
+				trabalharLogin(getById("loginRA").value )
+			});
+
+
+
+		</script>
+	
+	</body>
+</html>
